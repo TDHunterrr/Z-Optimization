@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "z-optimization",
+    "version": "1.0.0",
+    "name": "Z+ Optimization",
+    "description": "Optimizes all Minecraft in the best way to play smoothly!",
+    "authors": [
+        "TD_Hunterrr"
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/z-optimization"
+    },
+    "license": "ARR",
+    "icon": "assets/z-optimization/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "com.z.optimization.client.ZOptimizationClient"
+        ],
+        "modmenu": [
+            "com.z.optimization.client.config.ZModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "z-optimization.mixins.json",
+        {
+            "config": "z-optimization.client.mixins.json",
+            "environment": "client"
+        }
+    ],
+    "depends": {
+        "fabricloader": "<=0.19.3",
+        "minecraft": ">=26.1 <=26.2",
+        "java": ">=25",
+        "fabric-api": "*",
+        "yet_another_config_lib_v3": "*"
+    }
+}
