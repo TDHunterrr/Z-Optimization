@@ -1,0 +1,20 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.z.optimization.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"plugin": "com.z.optimization.mixin.ZOptimizationMixinPlugin",
+	"mixins": [
+		"AbsoluteBlockEntityEraser",
+		"EntityCullingOptimization",
+		"EntityPushMixin",
+		"FastAtan2Mixin",
+		"FastMathEngineMixin",
+		"GhostDimensionFix",
+		"HeightmapUpdateShortCircuit",
+		"LazyInitialization",
+		"NetworkChannelOptimization",
+		"NetworkPacketCompressionFix",
+		"TileRendering"
+	]
+}
