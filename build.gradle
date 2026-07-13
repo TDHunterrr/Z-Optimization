@@ -26,14 +26,11 @@ loom {
 dependencies {
 	// 1. Tell Loom which base game code to fetch
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-
-	// FIX: Changing this to 'modImplementation' forces Loom to automatically
-	// translate ModMenu's 'class_437' into 'Screen' for your 26.2 environment!
 	implementation "com.terraformersmc:modmenu:20.0.1"
 	include "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
     implementation "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
 
-	// 3. Normal implementation keywords for unobfuscated Fabric environments
+	// 2. Normal implementation keywords for unobfuscated Fabric environments
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
