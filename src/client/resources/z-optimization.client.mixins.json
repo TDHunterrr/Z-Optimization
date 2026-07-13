@@ -4,21 +4,19 @@
 	"package": "com.z.optimization.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ArmorStandRenderLayerFix",
 		"BlockEntityLagMachineFilter",
 		"BlockEntityMeshOptimizer",
 		"ClientConnectionMixin",
-		"ClientEntityPacketMerger",
 		"ClientEntityTrackerDisabler",
 		"ClientSideTickItemMerger",
 		"DynamicLoadingScreenDistance",
+		"EntityShadowMixin",
 		"FastLerpMixin",
-		"FluidDrawCulling",
 		"ParticleBudgetOptimization",
 		"PlayerCullingOptimization",
 		"RedstoneWireLoopOptimization",
 		"SoundSystemGCFix",
 		"TextureMipmapMemoryLeakFix",
-		"EntityShadowMixin"
+		"GlobalAnimationThrottle"
 	]
 }
