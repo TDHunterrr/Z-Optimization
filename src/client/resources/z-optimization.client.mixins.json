@@ -4,8 +4,6 @@
 	"package": "com.z.optimization.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"BlockEntityLagMachineFilter",
-		"BlockEntityMeshOptimizer",
 		"ClientConnectionMixin",
 		"ClientEntityTrackerDisabler",
 		"ClientSideTickItemMerger",
