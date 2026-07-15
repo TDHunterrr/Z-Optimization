@@ -1,6 +1,6 @@
 package com.z.optimization.config;
 
-import java.io.File;
+import  java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
@@ -12,6 +12,7 @@ public class ZOptions {
     public static boolean particleBudget = true;
     public static boolean fluidRenderingOpt = true;
     public static boolean fastCrystals = true;
+    public static boolean crystalAnimation = true;
     public static boolean tileRender = true;
     public static double tileSimDistance = 2.0; // Default: 2 Chunk
     public static boolean forceUpdateTriggered = false;
@@ -21,7 +22,6 @@ public class ZOptions {
     public static boolean fastMath = true;
 
     private static final File CONFIG_FILE = new File(System.getProperty("user.dir"), "config/z-optimization.properties");
-    // Change the type from int to double inside ZOptions.java
 
     public static void save() {
         try {
@@ -37,6 +37,7 @@ public class ZOptions {
             props.setProperty("renderEntityShadows", String.valueOf(renderEntityShadows));
             props.setProperty("enableEntityPushing", String.valueOf(enableEntityPushing));
             props.setProperty("fastMath", String.valueOf(fastMath));
+            props.setProperty("crystalAnimation", String.valueOf(crystalAnimation));
 
             if (!CONFIG_FILE.getParentFile().exists()) CONFIG_FILE.getParentFile().mkdirs();
             try (FileOutputStream out = new FileOutputStream(CONFIG_FILE)) {
@@ -69,6 +70,7 @@ public class ZOptions {
             renderEntityShadows = Boolean.parseBoolean(props.getProperty("renderEntityShadows", "true"));
             enableEntityPushing = Boolean.parseBoolean(props.getProperty("enableEntityPushing", "false"));
             fastMath = Boolean.parseBoolean(props.getProperty("fastMath", "true"));
+            crystalAnimation = Boolean.parseBoolean(props.getProperty("crystalAnimation", "true"));
         } catch (Exception e) {
             e.printStackTrace(); // Log trace but fall back automatically to memory defaults safely
         }
