@@ -1,105 +1,40 @@
 package com.z.optimization.client;
 
-import org.jspecify.annotations.NonNull;
-
 import com.z.optimization.config.ZOptions;
+import com.z.optimization.client.config.ZConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.GuiGraphicsExtractor; // Using the correct 26.2 graphic extractor type
-import net.minecraft.network.chat.Component;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
+import org.lwjgl.glfw.GLFW;
 
 public class ZOptimizationClient implements ClientModInitializer {
 
+    private static KeyMapping configKeyBinding;
+
     @Override
     public void onInitializeClient() {
-        ZOptions.load(); // Reads saved parameters right as the game loads up
-    }
+        ZOptions.load();
 
-    public static Screen getConfigScreen(Screen parent) {
-        return new Screen(Component.literal("Z+ Engine Optimization Settings")) {
+        // 1. Register the 'Z' KeyBinding
+        configKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+                "key.zoptimization.config",
+                GLFW.GLFW_KEY_Z,
+                KeyMapping.Category.register(Identifier.parse("category.zoptimization"))
+        ));
 
-            @Override
-            protected void init() {
-                int columnWidth = 180;
-                int rowHeight = 24;
-                int leftColX = this.width / 2 - columnWidth - 10;
-                int rightColX = this.width / 2 + 10;
-                int startY = this.height / 5;
+        // 2. Listen for the key press
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (configKeyBinding.consumeClick()) {
 
-                // --- COLUMN 1: World & Entity Tweaks ---
-                this.addRenderableWidget(Button.builder(
-                    Component.literal("Entity Culling: " + (ZOptions.entityCulling ? "ON" : "OFF")),
-                    button -> {
-                        ZOptions.entityCulling = !ZOptions.entityCulling;
-                        button.setMessage(Component.literal("Entity Culling: " + (ZOptions.entityCulling ? "ON" : "OFF")));
-                    }
-                ).bounds(leftColX, startY, columnWidth, rowHeight).build());
+                // Use the exact screen method your 26.2 environment expects!
+                // (If client.gui.screen() is red, delete the dot, type a dot '.', and let autocomplete find it!)
 
-                this.addRenderableWidget(Button.builder(
-                    Component.literal("Item Merger: " + (ZOptions.aggressiveItemStacking ? "ON" : "OFF")),
-                    button -> {
-                        ZOptions.aggressiveItemStacking = !ZOptions.aggressiveItemStacking;
-                        button.setMessage(Component.literal("Item Merger: " + (ZOptions.aggressiveItemStacking ? "ON" : "OFF")));
-                    }
-                ).bounds(leftColX, startY + (rowHeight + 4), columnWidth, rowHeight).build());
-
-                this.addRenderableWidget(Button.builder(
-                    Component.literal("Particle Optimizer: " + (ZOptions.particleBudget ? "ON" : "OFF")),
-                    button -> {
-                        ZOptions.particleBudget = !ZOptions.particleBudget;
-                        button.setMessage(Component.literal("Particle Optimizer: " + (ZOptions.particleBudget ? "ON" : "OFF")));
-                    }
-                ).bounds(leftColX, startY + (rowHeight + 4) * 2, columnWidth, rowHeight).build());
-
-
-                this.addRenderableWidget(Button.builder(
-                    Component.literal("Fluid Optimization: " + (ZOptions.fluidRenderingOpt ? "ON" : "OFF")),
-                    button -> {
-                        ZOptions.fluidRenderingOpt = !ZOptions.fluidRenderingOpt;
-                        button.setMessage(Component.literal("Fluid Optimization: " + (ZOptions.fluidRenderingOpt ? "ON" : "OFF")));
-                    }
-                ).bounds(leftColX, startY + (rowHeight + 4) * 4, columnWidth, rowHeight).build());
-
-                // --- COLUMN 2: Fast & Enhanced Rendering ---
-                this.addRenderableWidget(Button.builder(
-                    Component.literal("Fast Crystals: " + (ZOptions.fastCrystals ? "ON" : "OFF")),
-                    button -> {
-                        ZOptions.fastCrystals = !ZOptions.fastCrystals;
-                        button.setMessage(Component.literal("Fast Crystals: " + (ZOptions.fastCrystals ? "ON" : "OFF")));
-                    }
-                ).bounds(rightColX, startY, columnWidth, rowHeight).build());
-
-                // --- CONTROL ELEMENT: Done Button ---
-                this.addRenderableWidget(Button.builder(
-                    Component.translatable("gui.done"),
-                        _ -> {
-                        ZOptions.save(); // CRITICAL: This saves settings to your disk storage folder!
-                        this.minecraft.setScreenAndShow(parent);
-                    }
-                ).bounds(this.width / 2 - 100, startY + (rowHeight + 4) * 5 + 10, 200, 20).build());
-
-                // --- CONTROL ELEMENT: Done Button ---
-                this.addRenderableWidget(Button.builder(
-                    Component.translatable("gui.done"),
-                        _ -> this.minecraft.setScreenAndShow(parent)
-                ).bounds(this.width / 2 - 100, startY + (rowHeight + 4) * 5 + 10, 200, 20).build());
+                if (client.gui.screen() == null) {
+                    client.setScreenAndShow(ZConfigScreen.create(null));
+                }
             }
-
-            // FIXED: Corrected parameter signature matching the 26.2 GuiGraphicsExtractor setup
-            @Override
-            public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
-                super.extractRenderState(graphics, mouseX, mouseY, delta);
-                graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
-            }
-        };
-    }
-
-    // FIXED: Added safe null-checking to clean up the Eclipse/Loom null type safety warning
-    public static Object provideRawConfigScreen(Object parentScreen) {
-        if (parentScreen instanceof Screen screen) {
-            return getConfigScreen(screen);
-        }
-        return null;
+        });
     }
 }
