@@ -10,13 +10,14 @@
 		"ClientSideTickItemMerger",
 		"DynamicLoadingScreenDistance",
 		"EntityShadowMixin",
+		"FastCrystalOptimization",
 		"FastLerpMixin",
+		"GlobalAnimationThrottle",
 		"ParticleBudgetOptimization",
 		"PlayerCullingOptimization",
 		"RedstoneWireLoopOptimization",
 		"SoundSystemGCFix",
-		"TextureMipmapMemoryLeakFix",
-		"GlobalAnimationThrottle"
+		"TextureMipmapMemoryLeakFix"
 	],
 	"injectors": {
 		"defaultRequire": 1
