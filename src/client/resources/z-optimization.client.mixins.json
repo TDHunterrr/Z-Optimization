@@ -3,6 +3,7 @@
 	"minVersion": "0.8",
 	"package": "com.z.optimization.client.mixin",
 	"compatibilityLevel": "JAVA_25",
+	"plugin": "com.z.optimization.mixin.ZOptimizationMixinPlugin",
 	"client": [
 		"ClientConnectionMixin",
 		"ClientEntityTrackerDisabler",
@@ -16,5 +17,8 @@
 		"SoundSystemGCFix",
 		"TextureMipmapMemoryLeakFix",
 		"GlobalAnimationThrottle"
-	]
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
