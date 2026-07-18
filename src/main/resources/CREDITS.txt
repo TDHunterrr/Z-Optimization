@@ -1,0 +1,19 @@
+========================================================
+Z+ Optimization - Credits & Acknowledgements
+========================================================
+
+This mod was built to improve client performance and would not be 
+possible without the incredible tools provided by the open-source 
+Minecraft modding community. 
+
+Dependencies & Libraries
+--------------------------------------------------------
+Config menu powered by YetAnotherConfigLib (YACL)
+Author: isxander
+Source: https://github.com/isxander/YetAnotherConfigLib
+License: GNU Lesser General Public License v3.0 (LGPLv3)
+
+The YACL library and its components are used under the terms of the 
+LGPLv3. A copy of this license can be found at: 
+https://www.gnu.org/licenses/lgpl-3.0.txt
+
